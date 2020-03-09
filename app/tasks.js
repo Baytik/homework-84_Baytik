@@ -42,11 +42,25 @@ router.put('/:id', auth, async (req, res) => {
         return res.status(400).send(e);
     }
     } else {
-        res.status(404).send({message: 'Not found'})
+        res.status(404).send({message: 'Not found'});
     }
 });
 
 
-
+router.delete('/:id', auth, async (req, res) => {
+    const user = req.user;
+    const findTask = await Task.findOne({_id: req.params.id});
+    if (JSON.stringify(user._id) === JSON.stringify(findTask.user)) {
+    const task = await Task.deleteOne({_id: req.params.id});
+    try {
+        await task.save();
+        return res.send({message: 'Was deleted'})
+    } catch (e) {
+        return res.status(400).send(e);
+    }
+    } else {
+        res.status(404).send({message: 'Not found'});
+    }
+});
 
 module.exports = router;
