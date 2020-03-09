@@ -1,6 +1,4 @@
-/*
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
 
 const TaskSchema = new mongoose.Schema({
     user: {
@@ -8,15 +6,17 @@ const TaskSchema = new mongoose.Schema({
         required: true
     },
     title: {
-        type: Number,
+        type: String,
         required: true
     },
-    description: {
-      type: String
-    },
-
+    description: String,
+    status: {
+        type: String,
+        required: true,
+        enum: ['new', 'in_progress', 'complete']
+    }
 });
 
 const Album = mongoose.model('Task', TaskSchema);
 
-module.exports = Album;*/
+module.exports = Album;

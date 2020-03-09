@@ -2,8 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 
-const users = require('./app/users');/*
-const tasks = require('./app/tasks');*/
+const users = require('./app/users');
+const tasks = require('./app/tasks');
 
 const app = express();
 const port = 8000;
@@ -18,8 +18,8 @@ const run = async () => {
         useUnifiedTopology: true,
         useCreateIndex: true
     });
-    app.use('/users', users);/*
-    app.use('/tasks', tasks);*/
+    app.use('/users', users);
+    app.use('/tasks', tasks);
     app.listen(port)
 };
 
