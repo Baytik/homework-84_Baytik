@@ -28,7 +28,23 @@ router.post('/', auth, async (req, res) => {
     }
 });
 
-
+router.put('/:id', auth, async (req, res) => {
+    const user = req.user;
+    const task = await Task.findOne({_id: req.params.id});
+    if (JSON.stringify(user._id) === JSON.stringify(task.user)) {
+    task.title = req.body.title;
+    task.description = req.body.description;
+    task.status = req.body.status;
+    try {
+    await task.save();
+    return res.send(task)
+    } catch (e) {
+        return res.status(400).send(e);
+    }
+    } else {
+        res.status(404).send({message: 'Not found'})
+    }
+});
 
 
 
